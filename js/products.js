@@ -147,13 +147,24 @@ function parseCSV(str) {
 /* ── Google Drive 圖片網址轉換 ──────────────────────── */
 function parseImageUrl(url) {
   if (!url) return "";
-  // 檢查是否為 Google Drive 共用連結
-  const driveRegex = /drive\.google\.com\/file\/d\/([^/]+)/;
-  const match = url.match(driveRegex);
-  if (match && match[1]) {
-    // 轉換為可直接嵌入的圖片網址
-    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  url = url.trim();
+  
+  // 嘗試擷取 ID (支援 file/d/XXXX/view 以及 open?id=XXXX 兩種常見格式)
+  let fileId = null;
+  const regexFileD = /drive\.google\.com\/file\/d\/([^/?]+)/;
+  const regexOpenId = /id=([^&]+)/;
+
+  if (regexFileD.test(url)) {
+    fileId = url.match(regexFileD)[1];
+  } else if (url.includes('drive.google.com') && regexOpenId.test(url)) {
+    fileId = url.match(regexOpenId)[1];
   }
+
+  if (fileId) {
+    // 改用更穩定且不會被封鎖的 Google Drive 縮圖 API
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  }
+  
   return url;
 }
 
