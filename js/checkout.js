@@ -51,7 +51,7 @@ function initCheckoutDialog() {
   }
 }
 
-function handleCheckoutSubmit(e) {
+async function handleCheckoutSubmit(e) {
   e.preventDefault();
 
   const name = document.getElementById('checkout-name').value.trim();
@@ -77,15 +77,29 @@ function handleCheckoutSubmit(e) {
   const totalPrice = Cart.getTotalPrice();
   const orderNumber = 'ORD-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.random().toString(36).substr(2, 8);
 
-  /* 跳轉到 Google Form（預填） */
-  /* 
-   * 請將下方 GOOGLE_FORM_URL 替換為您實際的 Google Form 連結
-   * 以及 entry.XXXXX 替換為各欄位的 entry ID
-   * 
-   * 暫時使用本地儲存方式，讓使用者可以看到結果
-   */
-  
-  /* 先儲存到 localStorage 作為備份 */
+  /* 送出到 Google Form */
+  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdJHtHHBvvGQII3928HhmskfKuGiwSefcAGJE97iXkr6Xd5MA/formResponse";
+  const formData = new URLSearchParams();
+  formData.append("entry.379223707", name);
+  formData.append("entry.471264274", phone);
+  formData.append("entry.328473496", address);
+  formData.append("entry.1294876157", lineId);
+  formData.append("entry.1926833933", `【訂單編號】${orderNumber}\n\n【購買明細】\n${orderDetails}\n\n【總金額】NT$ ${totalPrice.toLocaleString()}`);
+
+  try {
+    await fetch(GOOGLE_FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: formData.toString()
+    });
+  } catch (error) {
+    console.error("Google Form 送出失敗", error);
+  }
+
+  /* 依然儲存到 localStorage 作為後台備份 */
   const order = {
     orderNumber,
     name,
