@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理後台 — 鮮果嚴選</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* 管理後台專用樣式 */
+    .admin-layout {
+      min-height: 100vh;
+      background: var(--muted);
+    }
+    .admin-header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .admin-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .admin-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--fg);
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .admin-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+    .admin-tab {
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: var(--bg);
+      color: var(--muted-fg);
+      border: 1px solid var(--border);
+    }
+    .admin-tab.active {
+      background: var(--primary);
+      color: var(--primary-fg);
+      border-color: var(--primary);
+    }
+    .admin-tab:hover:not(.active) {
+      background: var(--secondary);
+    }
+    .admin-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-2xl);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .admin-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border);
+      font-weight: 600;
+      color: var(--fg);
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--fg);
+      vertical-align: middle;
+    }
+    .admin-table tr:last-child td {
+      border-bottom: none;
+    }
+    .admin-table tr:hover td {
+      background: var(--muted);
+    }
+    .admin-table img {
+      width: 3rem;
+      height: 3rem;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-pending {
+      background: hsl(45, 90%, 90%);
+      color: hsl(45, 80%, 30%);
+    }
+    .status-confirmed {
+      background: hsl(210, 80%, 90%);
+      color: hsl(210, 70%, 30%);
+    }
+    .status-shipped {
+      background: hsl(142, 40%, 90%);
+      color: hsl(142, 50%, 30%);
+    }
+    .status-done {
+      background: var(--secondary);
+      color: var(--secondary-fg);
+    }
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .admin-stat-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .admin-stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .admin-stat-label {
+      font-size: 0.8125rem;
+      color: var(--muted-fg);
+      margin-top: 0.25rem;
+    }
+    .admin-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .admin-btn {
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+    }
+    .admin-btn:hover {
+      background: var(--secondary);
+    }
+    .admin-btn-danger {
+      color: var(--destructive);
+      border-color: var(--destructive);
+    }
+    .admin-btn-danger:hover {
+      background: hsl(0, 84%, 95%);
+    }
+    .export-btn {
+      margin-left: auto;
+    }
+    .admin-empty {
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted-fg);
+    }
+    @media (max-width: 768px) {
+      .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .admin-table {
+        font-size: 0.75rem;
+      }
+      .admin-table th, .admin-table td {
+        padding: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- 頂部 -->
+    <div class="admin-header">
+      <div class="container">
+        <div class="admin-title">
+          ⚙️ 鮮果嚴選 — 管理後台
+        </div>
+        <a href="index.html" class="btn btn-sm btn-outline" style="font-size:0.8125rem;">← 返回前台</a>
+      </div>
+    </div>
+
+    <div class="container" style="padding-top: 1rem; padding-bottom: 3rem;">
+
+      <!-- 統計卡片 -->
+      <div class="admin-stats" id="admin-stats">
+        <!-- 由 JS 渲染 -->
+      </div>
+
+      <!-- 分頁 -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="orders" onclick="switchTab('orders')">📦 訂單管理</button>
+        <button class="admin-tab" data-tab="products" onclick="switchTab('products')">🍎 產品管理</button>
+      </div>
+
+      <!-- 訂單管理 -->
+      <div id="tab-orders" class="admin-card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+          <h3 style="font-weight:700; font-family:var(--font-body);">訂單列表</h3>
+          <button class="btn btn-sm btn-outline export-btn" onclick="exportOrdersCSV()">📥 匯出 CSV</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-table" id="orders-table">
+            <thead>
+              <tr>
+                <th>訂單編號</th>
+                <th>姓名</th>
+                <th>電話</th>
+                <th>LINE ID</th>
+                <th>商品</th>
+                <th>金額</th>
+                <th>狀態</th>
+                <th>時間</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 產品管理 -->
+      <div id="tab-products" class="admin-card" style="display:none;">
+        <h3 style="font-weight:700; font-family:var(--font-body); margin-bottom:1rem;">產品列表</h3>
+        <p style="font-size:0.8125rem; color:var(--muted-fg); margin-bottom:1rem;">
+          💡 產品資料儲存在 <code>js/products.js</code> 中，直接編輯該檔案即可新增/修改產品。<br />
+          以下表格為目前的產品概覽：
+        </p>
+        <div style="overflow-x:auto;">
+          <table class="admin-table" id="products-table">
+            <thead>
+              <tr>
+                <th>圖片</th>
+                <th>名稱</th>
+                <th>產地</th>
+                <th>規格</th>
+                <th>價格</th>
+                <th>評分</th>
+                <th>庫存</th>
+                <th>分類</th>
+                <th>標籤</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/products.js"></script>
+  <script>
+    /* ── 分頁切換 ──────────────────────── */
+    function switchTab(tab) {
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.admin-tab[data-tab="${tab}"]`).classList.add('active');
+      document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
+      document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
+    }
+
+    /* ── 取得訂單 ──────────────────────── */
+    function getOrders() {
+      try {
+        return JSON.parse(localStorage.getItem('freshfruit_orders') || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    /* ── 渲染統計 ──────────────────────── */
+    function renderStats() {
+      const orders = getOrders();
+      const totalOrders = orders.length;
+      const totalRevenue = orders.reduce((s, o) => s + (o.totalPrice || 0), 0);
+      const pending = orders.filter(o => o.status === '待處理').length;
+      const totalProducts = products.length;
+
+      document.getElementById('admin-stats').innerHTML = `
+        <div class="admin-stat-card">
+          <div class="admin-stat-value">${totalOrders}</div>
+          <div class="admin-stat-label">總訂單數</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value">NT$ ${totalRevenue.toLocaleString()}</div>
+          <div class="admin-stat-label">總營收</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value">${pending}</div>
+          <div class="admin-stat-label">待處理</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-value">${totalProducts}</div>
+          <div class="admin-stat-label">商品數量</div>
+        </div>
+      `;
+    }
+
+    /* ── 渲染訂單 ──────────────────────── */
+    function renderOrders() {
+      const orders = getOrders();
+      const tbody = document.getElementById('orders-tbody');
+
+      if (orders.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="admin-empty">尚無訂單</td></tr>';
+        return;
+      }
+
+      const statusMap = {
+        '待處理': 'status-pending',
+        '已確認': 'status-confirmed',
+        '已出貨': 'status-shipped',
+        '已完成': 'status-done',
+      };
+
+      tbody.innerHTML = orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((o, i) => {
+        const itemsStr = (o.items || []).map(it => `${it.name}×${it.quantity}`).join(', ');
+        const date = new Date(o.createdAt).toLocaleString('zh-TW');
+        const statusClass = statusMap[o.status] || 'status-pending';
+        return `
+          <tr>
+            <td><code style="font-size:0.75rem;">${o.orderNumber || '-'}</code></td>
+            <td>${o.name || '-'}</td>
+            <td>${o.phone || '-'}</td>
+            <td>${o.lineId || '-'}</td>
+            <td style="max-width:12rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${itemsStr}</td>
+            <td style="font-weight:600; color:var(--primary);">NT$ ${(o.totalPrice || 0).toLocaleString()}</td>
+            <td><span class="status-badge ${statusClass}">${o.status || '待處理'}</span></td>
+            <td style="font-size:0.75rem; white-space:nowrap;">${date}</td>
+            <td>
+              <div class="admin-actions">
+                <button class="admin-btn" onclick="updateOrderStatus(${i})">更新狀態</button>
+                <button class="admin-btn admin-btn-danger" onclick="deleteOrder(${i})">刪除</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    /* ── 更新訂單狀態 ──────────────────── */
+    function updateOrderStatus(index) {
+      const orders = getOrders();
+      const statuses = ['待處理', '已確認', '已出貨', '已完成'];
+      const current = statuses.indexOf(orders[index].status);
+      const next = (current + 1) % statuses.length;
+      orders[index].status = statuses[next];
+      localStorage.setItem('freshfruit_orders', JSON.stringify(orders));
+      renderOrders();
+      renderStats();
+    }
+
+    /* ── 刪除訂單 ──────────────────────── */
+    function deleteOrder(index) {
+      if (!confirm('確定要刪除此訂單嗎？')) return;
+      const orders = getOrders();
+      orders.splice(index, 1);
+      localStorage.setItem('freshfruit_orders', JSON.stringify(orders));
+      renderOrders();
+      renderStats();
+    }
+
+    /* ── 匯出 CSV ──────────────────────── */
+    function exportOrdersCSV() {
+      const orders = getOrders();
+      if (orders.length === 0) {
+        alert('沒有訂單可匯出');
+        return;
+      }
+
+      const headers = ['訂單編號', '姓名', '電話', 'LINE ID', '地址', '商品明細', '金額', '狀態', '建立時間'];
+      const rows = orders.map(o => [
+        o.orderNumber || '',
+        o.name || '',
+        o.phone || '',
+        o.lineId || '',
+        o.address || '',
+        (o.items || []).map(it => `${it.name}×${it.quantity}`).join(' / '),
+        o.totalPrice || 0,
+        o.status || '待處理',
+        o.createdAt || '',
+      ]);
+
+      const BOM = '\uFEFF';
+      const csv = BOM + [headers, ...rows].map(row =>
+        row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')
+      ).join('\n');
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `orders_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    /* ── 渲染產品 ──────────────────────── */
+    function renderProducts() {
+      const tbody = document.getElementById('products-tbody');
+      tbody.innerHTML = products.map(p => `
+        <tr>
+          <td><img src="${p.image}" alt="${p.name}" /></td>
+          <td style="font-weight:600;">${p.name}</td>
+          <td>${p.origin}</td>
+          <td>${p.spec}</td>
+          <td style="font-weight:600; color:var(--primary);">${p.priceLabel}</td>
+          <td>${p.rating}</td>
+          <td>${p.stock}</td>
+          <td>${p.category.join(', ')}</td>
+          <td>${p.tag ? `<span class="badge badge-primary">${p.tag}</span>` : '-'}</td>
+        </tr>
+      `).join('');
+    }
+
+    /* ── 初始化 ──────────────────────── */
+    document.addEventListener('DOMContentLoaded', async () => {
+      await fetchProducts();
+      renderStats();
+      renderOrders();
+      renderProducts();
+    });
+  </script>
+
+</body>
+</html>

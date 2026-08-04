@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>水果詳情 — 鮮果嚴選</title>
+  <meta name="description" content="鮮果嚴選 — 全球頂級水果代購" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍇</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- 頂部導航列 -->
+  <div class="detail-topbar">
+    <div class="container">
+      <a href="index.html" class="detail-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        返回首頁
+      </a>
+    </div>
+  </div>
+
+  <!-- 主要內容 -->
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
+    <div id="detail-content">
+      <div style="text-align:center; padding:6rem 2rem;">
+        <p style="color:var(--muted-fg);">載入中...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 購物車側邊欄 -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h2 class="cart-title">🛒 購物清單</h2>
+      <button class="cart-close" onclick="closeCart()" aria-label="關閉">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">🛒 購物車是空的，快去選購水果吧！</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">合計</span>
+        <span class="cart-total-price" id="cart-total-price">NT$ 0</span>
+      </div>
+      <a href="index.html" class="btn btn-primary btn-block" style="text-decoration:none; text-align:center;">回首頁結帳</a>
+    </div>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/detail.js"></script>
+
+</body>
+</html>

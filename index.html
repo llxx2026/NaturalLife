@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>鮮果嚴選 — 全球頂級水果代購</title>
+  <meta name="description" content="從日本晴王麝香葡萄到紐西蘭櫻桃，嚴選全球最頂級的當季水果，新鮮直送、品質保證。" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍇</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══ 倒數橫幅 ═══ -->
+  <div class="countdown-banner" id="countdown-banner">
+    🔥 限時優惠進行中！全館滿 $2,000 免運 — 倒數
+    <span class="countdown-time" id="countdown-time">00:00:00</span>
+  </div>
+
+  <!-- ═══ 導航列 ═══ -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#hero" class="navbar-brand">
+        <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        <span class="brand-text">鮮果<span>嚴選</span></span>
+      </a>
+
+      <!-- 桌面導航 -->
+      <div class="navbar-links" id="navbar-links">
+        <a href="#hero">首頁</a>
+        <a href="#products">熱銷水果</a>
+        <a href="#process">代購流程</a>
+        <a href="#contact">聯絡我們</a>
+        <button class="navbar-cart" onclick="openCart()" aria-label="購物車">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+      </div>
+
+      <!-- 手機版 -->
+      <div style="display:flex; align-items:center; gap:0.5rem;" class="mobile-controls">
+        <button class="navbar-cart" onclick="openCart()" aria-label="購物車" style="display:none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="選單">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 手機選單 -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#hero">首頁</a>
+      <a href="#products">熱銷水果</a>
+      <a href="#process">代購流程</a>
+      <a href="#contact">聯絡我們</a>
+    </div>
+  </nav>
+
+  <!-- ═══ 主要內容 ═══ -->
+  <main style="padding-top: calc(var(--banner-h) + var(--navbar-h));">
+
+    <!-- Hero 區塊 -->
+    <section id="hero" class="hero">
+      <!-- 水果線條裝飾 -->
+      <div class="hero-bg-pattern">
+        <svg viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M200 300c0-40 30-70 60-70s60 30 60 70-30 80-60 80-60-40-60-80z" stroke="hsl(142,52%,45%)" stroke-width="2"/>
+          <path d="M260 230c0 0 10-30 5-50" stroke="hsl(142,52%,45%)" stroke-width="2"/>
+          <path d="M250 235c10-5 25 0 30 5" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="900" cy="200" r="18" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="930" cy="215" r="18" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="870" cy="215" r="18" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="885" cy="245" r="18" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="915" cy="245" r="18" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="900" cy="270" r="18" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <path d="M900 182c0 0 5-25 0-45" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <path d="M150 550c-5-25 10-50 35-55s50 10 55 35-15 60-40 65-45-20-50-45z" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="1000" cy="550" r="22" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <circle cx="1050" cy="560" r="22" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <path d="M1000 528c0 0 15-40 25-50 10-10 25-5 25 5s-15 40-25 50" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <path d="M500 680c20-30 60-40 80-20s0 50-20 60-60 0-60-40z" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+          <path d="M750 620c0-35 28-65 65-65s65 30 65 65-28 70-65 70-65-35-65-70z" stroke="hsl(142,52%,45%)" stroke-width="1.5"/>
+        </svg>
+      </div>
+
+      <div class="container">
+        <div class="hero-text animate-fade-in-up">
+          <span class="hero-subtitle">🍇 全球頂級水果直送到府</span>
+          <h1 class="hero-title">
+            為你嚴選，<br />
+            <span class="text-gradient-green">世界級鮮果</span>
+          </h1>
+          <p class="hero-desc">
+            從日本晴王麝香葡萄到紐西蘭櫻桃，我們為您代購全球最頂級的當季水果，新鮮直送、品質保證。
+          </p>
+          <div class="hero-actions">
+            <a href="#products" class="btn btn-primary">立即選購</a>
+            <a href="#process" class="btn btn-outline">了解流程</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <p class="hero-stat-value">500+</p>
+              <p class="hero-stat-label">滿意顧客</p>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+              <p class="hero-stat-value">30+</p>
+              <p class="hero-stat-label">合作果園</p>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+              <p class="hero-stat-value">100%</p>
+              <p class="hero-stat-label">品質保證</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image animate-scale-in" style="animation-delay: 0.2s;">
+          <img src="assets/hero-fruits.jpg" alt="頂級水果精選" loading="eager" />
+          <div class="glow-1"></div>
+          <div class="glow-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 產品展示 -->
+    <section id="products" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">精選商品</span>
+          <h2 class="section-title">熱銷水果推薦</h2>
+          <p class="section-desc">每一顆都經過嚴格挑選，從產地直送您的餐桌</p>
+        </div>
+
+        <div class="category-filters" id="category-filters">
+          <button class="category-btn active" data-category="全部">全部</button>
+          <button class="category-btn" data-category="當季限定">當季限定</button>
+          <button class="category-btn" data-category="進口水果">進口水果</button>
+          <button class="category-btn" data-category="禮盒系列">禮盒系列</button>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+          <!-- 由 JS 動態渲染 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 代購流程 -->
+    <section id="process" class="section" style="background: linear-gradient(180deg, var(--green-light), var(--bg));">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">簡單四步</span>
+          <h2 class="section-title">代購流程</h2>
+          <p class="section-desc">從挑選到享用，我們讓一切變得簡單</p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-step animate-fade-in-up">
+            <div class="process-step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <h3 class="process-step-title">挑選水果</h3>
+            <p class="process-step-desc">瀏覽我們精選的全球頂級水果，找到您心儀的品項。</p>
+          </div>
+          <div class="process-step animate-fade-in-up" style="animation-delay: 0.15s;">
+            <div class="process-step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <h3 class="process-step-title">下單預購</h3>
+            <p class="process-step-desc">選擇數量與配送方式，輕鬆完成線上訂購。</p>
+          </div>
+          <div class="process-step animate-fade-in-up" style="animation-delay: 0.3s;">
+            <div class="process-step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+            </div>
+            <h3 class="process-step-title">產地直送</h3>
+            <p class="process-step-desc">水果由產地新鮮採摘，全程冷鏈運輸，保證品質。</p>
+          </div>
+          <div class="process-step animate-fade-in-up" style="animation-delay: 0.45s;">
+            <div class="process-step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            </div>
+            <h3 class="process-step-title">享受美味</h3>
+            <p class="process-step-desc">收到最新鮮的頂級水果，與家人朋友共享美好時光。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 客戶評價 -->
+    <section id="testimonials" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">真實回饋</span>
+          <h2 class="section-title">顧客好評</h2>
+          <p class="section-desc">超過 500 位顧客的信賴與推薦</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- 評價 1 -->
+          <div class="testimonial-card animate-fade-in-up">
+            <svg class="testimonial-quote-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            <p class="testimonial-text">晴王葡萄真的超甜！每一顆都飽滿多汁，家人吃了都讚不絕口。包裝也非常用心，完全沒有損傷，下次還會回購！</p>
+            <p class="testimonial-product">購買品項：晴王麝香葡萄</p>
+            <div class="testimonial-stars">
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="testimonial-author">
+              <img src="assets/avatar-1.jpg" alt="林小萱" />
+              <span class="testimonial-author-name">林小萱</span>
+            </div>
+          </div>
+
+          <!-- 評價 2 -->
+          <div class="testimonial-card animate-fade-in-up" style="animation-delay: 0.1s;">
+            <svg class="testimonial-quote-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            <p class="testimonial-text">第一次嘗試代購日本白桃，品質遠超預期！入口即化的口感讓人難忘。客服回覆也很即時，整體體驗非常棒。</p>
+            <p class="testimonial-product">購買品項：日本白桃</p>
+            <div class="testimonial-stars">
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="testimonial-author">
+              <img src="assets/avatar-2.jpg" alt="陳志明" />
+              <span class="testimonial-author-name">陳志明</span>
+            </div>
+          </div>
+
+          <!-- 評價 3 -->
+          <div class="testimonial-card animate-fade-in-up" style="animation-delay: 0.2s;">
+            <svg class="testimonial-quote-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            <p class="testimonial-text">韓國草莓禮盒送禮超有面子，朋友收到都說好漂亮。草莓又大又甜，新鮮度沒話說，會持續關注新品！</p>
+            <p class="testimonial-product">購買品項：韓國草莓禮盒</p>
+            <div class="testimonial-stars">
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-empty" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="testimonial-author">
+              <img src="assets/avatar-3.jpg" alt="王雅婷" />
+              <span class="testimonial-author-name">王雅婷</span>
+            </div>
+          </div>
+
+          <!-- 評價 4 -->
+          <div class="testimonial-card animate-fade-in-up" style="animation-delay: 0.3s;">
+            <svg class="testimonial-quote-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            <p class="testimonial-text">已經回購三次了！每次團購都準時收到，水果品質穩定。鮮果嚴選是我目前用過最好的水果代購服務。</p>
+            <p class="testimonial-product">購買品項：紐西蘭櫻桃</p>
+            <div class="testimonial-stars">
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="testimonial-author">
+              <img src="assets/avatar-4.jpg" alt="張家豪" />
+              <span class="testimonial-author-name">張家豪</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer id="contact" class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-brand">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              <span>鮮果嚴選</span>
+            </div>
+            <p class="footer-desc">專注於全球頂級水果代購，嚴選最高品質的當季鮮果，為您帶來最天然的美味體驗。</p>
+          </div>
+
+          <div>
+            <h4>快速連結</h4>
+            <div class="footer-links">
+              <a href="#hero">首頁</a>
+              <a href="#products">熱銷水果</a>
+              <a href="#process">代購流程</a>
+              <a href="#contact">聯絡我們</a>
+            </div>
+          </div>
+
+          <div>
+            <h4>聯絡資訊</h4>
+            <div class="footer-contact">
+              <div class="footer-contact-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>+886 2-1234-5678</span>
+              </div>
+              <div class="footer-contact-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <span>hello@freshfruit.tw</span>
+              </div>
+              <div class="footer-contact-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>台北市大安區水果路88號</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          © 2026 鮮果嚴選 FreshFruit. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ═══ 購物車側邊欄 ═══ -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h2 class="cart-title">🛒 購物清單</h2>
+      <button class="cart-close" onclick="closeCart()" aria-label="關閉">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">🛒 購物車是空的，快去選購水果吧！</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">合計</span>
+        <span class="cart-total-price" id="cart-total-price">NT$ 0</span>
+      </div>
+      <button class="btn btn-primary btn-block" id="cart-checkout-btn" onclick="openCheckout()" disabled>前往結帳</button>
+    </div>
+  </aside>
+
+  <!-- ═══ 結帳對話框 ═══ -->
+  <div class="dialog-overlay" id="checkout-overlay">
+    <div class="dialog">
+      <div class="dialog-header">
+        <h3 class="dialog-title">結帳資訊</h3>
+        <p class="dialog-desc">請填寫以下資料，我們將透過 LINE 與您確認代購詳情</p>
+      </div>
+
+      <div class="order-summary" id="order-summary">
+        <!-- 由 JS 渲染 -->
+      </div>
+
+      <form id="checkout-form">
+        <div class="form-group">
+          <input type="text" id="checkout-name" class="form-input" placeholder="姓名" />
+          <p class="form-error"></p>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="checkout-phone" class="form-input" placeholder="電話（僅限數字）" />
+          <p class="form-error"></p>
+        </div>
+        <div class="form-group">
+          <input type="text" id="checkout-address" class="form-input" placeholder="收件地址" />
+          <p class="form-error"></p>
+        </div>
+        <div class="form-group">
+          <input type="text" id="checkout-line" class="form-input" placeholder="LINE ID" />
+          <p class="form-error"></p>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:0.5rem;">確認送出訂單</button>
+      </form>
+
+      <button style="margin-top:0.75rem; width:100%; text-align:center; font-size:0.875rem; color:var(--muted-fg); cursor:pointer; background:none; border:none; font-family:inherit;" onclick="closeCheckout()">取消</button>
+    </div>
+  </div>
+
+  <!-- ═══ Scripts ═══ -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>感謝您的訂購 — 鮮果嚴選</title>
+  <meta name="description" content="訂單已成功送出" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍇</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="thank-you">
+    <div class="thank-you-content animate-fade-in-up">
+      <div class="thank-you-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+      </div>
+      <h1>感謝您的訂購！🎉</h1>
+      <p>我們已收到您的訂單，將盡快透過 LINE 與您確認代購詳情。</p>
+      <p>請留意 LINE 訊息通知。</p>
+      <div class="order-number" id="order-number"></div>
+      <a href="index.html" class="btn btn-primary">返回首頁</a>
+    </div>
+  </div>
+
+  <script>
+    /* 顯示訂單編號 */
+    const params = new URLSearchParams(window.location.search);
+    const orderNumber = params.get('order');
+    const el = document.getElementById('order-number');
+    if (orderNumber && el) {
+      el.textContent = `訂單編號：${orderNumber}`;
+    }
+  </script>
+
+</body>
+</html>
